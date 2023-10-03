@@ -28,7 +28,7 @@ This is a cloud book writer platform.
     important values to run the project
 
     ```sh
-    SECRET_KEY: asdasdasdasd 
+    SECRET_KEY: asdasdasdasd
     ```
 7. Run `python manage.py makekigrations`
 
