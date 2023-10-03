@@ -1,22 +1,24 @@
 # serializers.py
 
 from rest_framework import serializers
+
 from .models import Book, Section, UserProfile
 
 
 class SectionSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Section
-        fields = '__all__'
+        fields = "__all__"
 
     def create(self, validated_data):
-        user_role = validated_data.pop('user_role')
+        user_role = validated_data.pop("user_role")
         if user_role == "Author":
-            collaborators_data = validated_data.pop('collaborators', [])
+            collaborators_data = validated_data.pop("collaborators", [])
             instance = Section.objects.create(**validated_data)
             for collaborator_data in collaborators_data:
-                collaborator, created = UserProfile.objects.get_or_create(**collaborator_data)
+                collaborator, created = UserProfile.objects.get_or_create(
+                    **collaborator_data
+                )
                 instance.collaborators.add(collaborator)
         else:
             instance = None
@@ -34,4 +36,4 @@ class BookSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Book
-        fields = '__all__'
+        fields = "__all__"

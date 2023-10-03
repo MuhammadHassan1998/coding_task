@@ -1,4 +1,3 @@
-
 from rest_framework import permissions
 
 
@@ -12,8 +11,8 @@ class IsAuthorOrCollaborator(permissions.BasePermission):
         if not request.user.is_authenticated:
             return False
         user_profile = request.user.userprofile
-        if view.action == 'create':
-            return user_profile.role == 'Author'
-        elif view.action in ['update', 'partial_update', 'destroy']:
-            return user_profile.role in ['Author', 'Collaborator']
+        if view.action == "create":
+            return user_profile.role == "Author"
+        elif view.action in ["update", "partial_update", "destroy"]:
+            return user_profile.role in ["Author", "Collaborator"]
         return True
