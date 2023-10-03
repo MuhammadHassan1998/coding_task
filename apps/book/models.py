@@ -6,18 +6,15 @@ class Book(models.Model):
     title = models.CharField(max_length=100)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    def __repr__(self):
+    def __str__(self):
         return self.title
 
 
 class Section(models.Model):
     title = models.CharField(max_length=100)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    parent_section = models.ForeignKey(
-        "self", null=True, blank=True, on_delete=models.CASCADE
-    )
 
-    def __repr__(self):
+    def __str__(self):
         return self.title
 
 
@@ -28,7 +25,7 @@ class Subsection(models.Model):
         "self", null=True, blank=True, on_delete=models.CASCADE
     )
 
-    def __repr__(self):
+    def __str__(self):
         return self.title
 
 
@@ -37,5 +34,5 @@ class Collaboration(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     is_author = models.BooleanField(default=False)
 
-    def __repr__(self):
+    def __str__(self):
         return self.user.name
