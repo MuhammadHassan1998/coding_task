@@ -1,16 +1,12 @@
-from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import LogoutView
 from django.urls import path
+from rest_framework.authtoken.views import obtain_auth_token
 
-from . import views
+from .views import RegistrationView
 
 urlpatterns = [
-    path(
-        "login/", auth_views.LoginView.as_view(template_name="login.html"), name="login"
-    ),
-    path(
-        "logout/",
-        auth_views.LogoutView.as_view(template_name="logout.html"),
-        name="logout",
-    ),
-    path("", views.home, name="home"),
+    path("login/", obtain_auth_token, name="api_login"),
+    path("logout/", LogoutView.as_view(), name="api_logout"),
+    path("register/", RegistrationView.as_view(), name="registration"),
+    path("token/", obtain_auth_token, name="token_obtain_pair"),
 ]
