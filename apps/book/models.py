@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from mptt.models import MPTTModel
 
 
 class Book(models.Model):
@@ -10,20 +11,10 @@ class Book(models.Model):
         return self.title
 
 
-class Section(models.Model):
-    title = models.CharField(max_length=100)
+class Section(MPTTModel):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.title
-
-
-class Subsection(models.Model):
     title = models.CharField(max_length=100)
-    section = models.ForeignKey(Section, on_delete=models.CASCADE)
-    parent_subsection = models.ForeignKey(
-        "self", null=True, blank=True, on_delete=models.CASCADE
-    )
+    parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
